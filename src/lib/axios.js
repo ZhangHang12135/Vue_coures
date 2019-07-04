@@ -13,6 +13,7 @@ class HTTPRequest {
         //
       }
     }
+    // console.log('config:---', config)
     return config
   }
   interceptors (instance, url) {
@@ -22,7 +23,7 @@ class HTTPRequest {
       // Spin.show()
       if (!Object.keys(this.queue).length) {}/* Spin.show() */
       this.queue[url] = true
-      // console.log(config)
+      // console.log('实际拦截到的请求--', config)
       return config
     }, error => {
       return Promise.reject(error)
@@ -31,7 +32,7 @@ class HTTPRequest {
     instance.interceptors.response.use(res => {
       delete this.queue[url]
       const { data, status } = res
-      console.log(res)
+      // console.log(res)
       return { data, status }
     }, error => {
       return Promise.reject(error)
@@ -39,7 +40,9 @@ class HTTPRequest {
   }
   request (options) {
     const instance = axios.create() // axios的实例
+    // console.log('自定义的---', options)
     options = Object.assign(this.getInsideConfig(), options) // 合并对象，后面覆盖前面
+    // console.log('合并之后---', options)
     this.interceptors(instance, options.url) // 添加拦截器
     return instance(options)
   }

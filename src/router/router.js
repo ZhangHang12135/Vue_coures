@@ -88,6 +88,11 @@ export default [
     component: () => import('@/views/login.vue')
   },
   {
+    path: '/count-to',
+    name: 'count_to',
+    component: () => import('@/views/count-to.vue')
+  },
+  {
     path: '*',
     component: () => import('@/views/error_404.vue')
   }

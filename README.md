@@ -1,3 +1,4 @@
+```
 D:\Vs_code\复习\Vue\vue-course
 ├─.browserslistrc
 ├─.editorconfig
@@ -51,3 +52,4 @@ D:\Vs_code\复习\Vue\vue-course
 ├─public
 |   ├─favicon.ico
 |   └index.html
+```
