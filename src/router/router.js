@@ -87,11 +87,18 @@ export default [
     name: 'login',
     component: () => import('@/views/login.vue')
   },
+  // ----- 自定义组件的视图示例 begin
   {
     path: '/count-to',
     name: 'count_to',
     component: () => import('@/views/count-to.vue')
   },
+  {
+    path: '/split-pane',
+    name: 'split_pane',
+    component: () => import('@/views/split-pane.vue')
+  },
+  // -------- end
   {
     path: '*',
     component: () => import('@/views/error_404.vue')
