@@ -105,6 +105,11 @@ export default [
     component: () => import('@/views/render.vue')
   },
   {
+    path: '/menu_page',
+    name: 'menu_page',
+    component: () => import('@/views/menu_page.vue')
+  },
+  {
     path: '*',
     component: () => import('@/views/error_404.vue')
   }
