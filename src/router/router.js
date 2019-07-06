@@ -100,6 +100,11 @@ export default [
   },
   // -------- end
   {
+    path: '/render',
+    name: 'render',
+    component: () => import('@/views/render.vue')
+  },
+  {
     path: '*',
     component: () => import('@/views/error_404.vue')
   }
