@@ -7,6 +7,7 @@
     <button @click="getInfo" :style="{ background: bgColor }">点我请求数据</button>
     <h1>{{food}}</h1>
     <img :src="url" />
+    <button @click="handleLogout">退出</button>
   </div>
 </template>
 
@@ -15,6 +16,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 // import axios from 'axios'
 import { getUserInfo } from '@/api/user'
+import { mapActions } from 'vuex';
 export default {
   name: 'home',
   components: {
@@ -65,6 +67,9 @@ export default {
   //   //ex: 页面编辑没有保存，可以提示是否真的跳转，应该相当于浏览器中的beforeunload页面卸载事件
   // },
   methods: {
+    ...mapActions([
+      'logout'
+    ]),
     handleClick(type) {
       if (type === 'back') this.$router.back()
       else if (type === 'push') {
@@ -93,6 +98,12 @@ export default {
         console.log('res-data: ', res.data)
         this.url = res.data.img_base664
         this.bgColor = res.data.color
+      })
+    },
+    handleLogout(){
+      this.logout()
+      this.$router.push({
+        name: 'login'
       })
     }
   }

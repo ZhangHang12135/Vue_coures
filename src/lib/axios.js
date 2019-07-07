@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseURL } from '@/config'
-
+import { getToken } from '@/lib/until'
 class HTTPRequest {
   constructor (baseUrl = baseURL) {
     this.baseUrl = baseUrl
@@ -23,6 +23,7 @@ class HTTPRequest {
       // Spin.show()
       if (!Object.keys(this.queue).length) {}/* Spin.show() */
       this.queue[url] = true
+      config.headers['Authorization'] = getToken()
       // console.log('实际拦截到的请求--', config)
       return config
     }, error => {
@@ -31,9 +32,9 @@ class HTTPRequest {
     // 响应拦截器 response interceptor
     instance.interceptors.response.use(res => {
       delete this.queue[url]
-      const { data, status } = res
+      const { data } = res
       // console.log(res)
-      return { data, status }
+      return data
     }, error => {
       return Promise.reject(error)
     })
