@@ -3,13 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Bus from './lib/bus'
+import iview from 'iview'
+import 'iview/dist/styles/iview.css'
 // import CountTo from '_c/count-to'
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 
 Vue.config.productionTip = false
 Vue.prototype.$bus = Bus
-
+Vue.use(iview)
 // const handleClick = event => {
 //   console.log(event)
 //   event.stopPropagation()

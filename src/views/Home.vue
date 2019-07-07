@@ -1,13 +1,26 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <!-- <img alt="Vue logo" src="../assets/logo.png">
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转parent</button>
     <button @click="handleClick('replace')">替换parent</button>
     <button @click="getInfo" :style="{ background: bgColor }">点我请求数据</button>
     <h1>{{food}}</h1>
     <img :src="url" />
-    <button @click="handleLogout">退出</button>
+    <button @click="handleLogout">退出</button> -->
+    <Row>
+      <i-col></i-col>
+    </Row>
+    <Row :gutter="10">
+      <i-col span="12"></i-col>
+      <i-col span="12"></i-col>
+    </Row>
+    <Row :gutter="10" class="blue">
+      <i-col :md="6" :sm="12">1</i-col>
+      <i-col :md="6" :sm="12">2</i-col>
+      <i-col :md="6" :sm="12">3</i-col>
+      <i-col :md="6" :sm="12">4</i-col>
+    </Row>
   </div>
 </template>
 
@@ -109,3 +122,14 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.home{
+  .ivu-col{
+    height: 50px;
+    margin-top: 10px;
+    background: pink;
+    background-clip: content-box;
+  }
+}
+</style>
+

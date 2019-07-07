@@ -8,15 +8,21 @@ export default [
     path: '/',
     alias: '/home_page', // 别名
     name: 'home',
-    component: Home,
-    props: route => ({
-      food: route.query.food
-    }),
-    beforeEnter: (to, from, next) => {
-      // if (from.name === 'about') alert('这是从about来的')
-      // else alert('这从其它页来的')
-      next() // 路由独享守卫 像这种带有next的一定要执行，不然根本不能跳转
-    }
+    component: () => import('@/views/layout.vue'),
+    // props: route => ({
+    //   food: route.query.food
+    // }),
+    // beforeEnter: (to, from, next) => {
+    //   // if (from.name === 'about') alert('这是从about来的')
+    //   // else alert('这从其它页来的')
+    //   next() // 路由独享守卫 像这种带有next的一定要执行，不然根本不能跳转
+    // },
+    children: [
+      {
+        path: 'home',
+        component: Home
+      }
+    ]
   },
   {
     path: '/about',

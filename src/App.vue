@@ -5,11 +5,11 @@
       <router-link to="/about">About</router-link>
       <router-link :to = "{ name: 'parent'}">test</router-link>
     </div> -->
-    <transition-group :name="routerTransition">
+    <!-- <transition-group :name="routerTransition"> -->
       <router-view key="default"/>
       <router-view key="email" name="email"/>
       <router-view key="tel" name="tel" />
-    </transition-group>
+    <!-- </transition-group> -->
 
   </div>
 </template>
@@ -29,6 +29,12 @@ export default {
 </script>
 
 <style lang="less">
+html,body{
+  height: 100%;
+}
+body{
+  margin: 0;
+}
 .router-enter {
   // 没显示的状态 相当于css的动画开始状态
   opacity: 0;
@@ -59,6 +65,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 #nav {
   padding: 30px;
