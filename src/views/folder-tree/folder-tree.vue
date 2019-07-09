@@ -1,26 +1,61 @@
 <template>
   <div class="floder-wrapper">
-    <Tree :data="folderTree" :render="renderFunc"></Tree>
+    <folder-tree
+      :folder-list.sync="folderList"
+      :file-list.sync="fileList"
+      :folder-drop="folderDrop"
+      :file-drop="fileDrop"
+      :beforeDelete="beforeDelete"></folder-tree>
   </div>
 </template>
 <script>
 import { getFolderList, getFileList } from '@/api/data'
-import { async, Promise } from 'q';
-import { putFileInFolder, transferFolderToTree } from '@/lib/until'
+import { async, Promise, reject } from 'q';
+import FolderTree from '_c/folder-tree'
+import { setTimeout } from 'timers';
 export default {
+  components: {
+    FolderTree
+  },
   data() {
     return {
       folderList: [],
       fileList: [],
       folderTree: [],
-      renderFunc: (h, { root, node, data }) => {
-        return (
-          <div class="tree-item">
-          { data.type === 'folder' ? <icon type="ios-folder" color="#2d8cf0" style="margin:0 5px"/> : '' }
-          { data.title }
-          </div>
-        )
-      }
+      folderDrop: [
+        {
+          name: 'rename',
+          title: '重命名'
+        },
+        {
+          name: 'delete',
+          title: '删除'
+        }
+      ],
+      fileDrop: [
+        {
+          name: 'rename',
+          title: '重命名'
+        },
+        {
+          name: 'delete',
+          title: '删除'
+        }
+      ]
+    }
+  },
+  methods: {
+    beforeDelete () {
+      //实际调用接口
+      return new Promise((resolve, reject) => {
+        setTimeout(()=>{
+          let error = null
+          if (!error) {
+            resolve()
+          } else reject(error)
+        }, 2000)
+
+      })
     }
   },
   // 使用es8的这个语法糖，就跟同步一样的啦，
@@ -48,7 +83,9 @@ export default {
   // 视频中的
   mounted () {
     Promise.all([getFolderList(), getFileList()]).then(res => {
-      this.folderTree = transferFolderToTree(putFileInFolder(res[0],res[1]))
+      // this.folderTree = transferFolderToTree(putFileInFolder(res[0],res[1]))
+      this.folderList = res[0]
+      this.fileList = res[1]
     })
   }
 }
@@ -56,10 +93,6 @@ export default {
 <style lang="less">
 .floder-wrapper{
   width: 300px;
-  .tree-item{
-    display: inline-block;
-    width: ~"calc(100% - 50px)";
-  }
 }
 </style>
 

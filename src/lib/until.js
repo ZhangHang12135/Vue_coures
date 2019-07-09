@@ -22,6 +22,7 @@ export const putFileInFolder = (folderList, fileList) => {
       if (fileItem.folder_id === floderId) {
         const file = fileListCloned.splice(index, 1)[0]
         file.title = file.name
+        file.type = 'file'
         if (folderItem.children) folderItem.children.push(file)
         else folderItem.children = [file]
       }
@@ -48,4 +49,50 @@ export const transferFolderToTree = folderList => {
     return arr
   }
   return handle(0)
+}
+
+// 展开指定目录
+// export const expandSpecifiedFolder = (folderTree, id) => {
+//   return folderTree.map(item => {
+//     if (item.type === 'folder') {
+//       if (item.id === id) {
+//         item.expand = true
+//       } else {
+//         if (item.children && item.children.length) {
+//           item.children = expandSpecifiedFolder(item.children, id)
+//           if (item.children.some(child => {
+//             return child.expand === true
+//           })) {
+//             item.expand = true
+//           } else {
+//             item.expand = false
+//           }
+//         }
+//       }
+//     }
+//     return item
+//   })
+// }
+export const expandSpecifiedFolder = (vm, folderTree, id) => {
+  return folderTree.map(item => {
+    if (item.type === 'folder') {
+      if (item.id === id) {
+        // item.expand = true
+        vm.$set(item, 'expand', true)
+      } else {
+        if (item.children && item.children.length) {
+          item.children = expandSpecifiedFolder(vm, item.children, id)
+          if (item.children.some(child => {
+            return child.expand === true
+          })) {
+            // item.expand = true
+            vm.$set(item, 'expand', true)
+          } else {
+            vm.$set(item, 'expand', false)
+          }
+        }
+      }
+    }
+    return item
+  })
 }
