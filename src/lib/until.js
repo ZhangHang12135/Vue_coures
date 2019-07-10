@@ -52,27 +52,6 @@ export const transferFolderToTree = folderList => {
 }
 
 // 展开指定目录
-// export const expandSpecifiedFolder = (folderTree, id) => {
-//   return folderTree.map(item => {
-//     if (item.type === 'folder') {
-//       if (item.id === id) {
-//         item.expand = true
-//       } else {
-//         if (item.children && item.children.length) {
-//           item.children = expandSpecifiedFolder(item.children, id)
-//           if (item.children.some(child => {
-//             return child.expand === true
-//           })) {
-//             item.expand = true
-//           } else {
-//             item.expand = false
-//           }
-//         }
-//       }
-//     }
-//     return item
-//   })
-// }
 export const expandSpecifiedFolder = (vm, folderTree, id) => {
   return folderTree.map(item => {
     if (item.type === 'folder') {
@@ -95,4 +74,22 @@ export const expandSpecifiedFolder = (vm, folderTree, id) => {
     }
     return item
   })
+}
+
+// 因后端ajax无法无法触发download,必须模拟from表单才能下载
+export const downloadFile = ({ url, params }) => {
+  // console.log(url, params)
+  const form = document.createElement('form')
+  form.setAttribute('action', url)
+  form.setAttribute('method', 'post')
+  for (const key in params) {
+    const input = document.createElement('input')
+    input.setAttribute('type', 'hidden')
+    input.setAttribute('name', key)
+    input.setAttribute('value', params[key])
+    form.appendChild(input)
+  }
+  document.body.appendChild(form)
+  form.submit()
+  form.remove()
 }
