@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router'
-// import store from '@/store'
-// import { setTitle, getToken, setToken } from '@/lib/until'
+import store from '@/store'
+import { setTitle, getToken, setToken } from '@/lib/until'
 // 这里是创建路由实例的
 Vue.use(Router)
 
@@ -18,8 +18,8 @@ const router = new Router({
 // from 离开的页面的路由对象
 
 router.beforeEach((to, from, next) => {
-  // to.meta && setTitle(to.meta.title)
-  // // if is not login page
+  to.meta && setTitle(to.meta.title)
+  // if is not login page
   // if (to.name !== 'login') {
   //   if (HAS_LOGINED) next()
   //   else next({ name: 'login' })
@@ -27,19 +27,19 @@ router.beforeEach((to, from, next) => {
   //   if (HAS_LOGINED) next({ name: 'home' })
   //   else next()
   // }
-  // const token = getToken()
-  // if (token) {
-  //   store.dispatch('authorization', token).then(() => {
-  //     if (to.name === 'login') next({ name: 'home' })
-  //     else next()
-  //   }).catch(() => {
-  //     setToken('')
-  //     next({ name: 'login' })
-  //   })
-  // } else {
-  //   if (to.name === 'login') next()
-  //   else next({ name: 'login' })
-  // }
+  const token = getToken()
+  if (token) {
+    store.dispatch('authorization', token).then(() => {
+      if (to.name === 'login') next({ name: 'home' })
+      else next()
+    }).catch(() => {
+      setToken('')
+      next({ name: 'login' })
+    })
+  } else {
+    if (to.name === 'login') next()
+    else next({ name: 'login' })
+  }
   next()
 }) // 注册全局前置守卫
 
