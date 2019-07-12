@@ -78,7 +78,8 @@ export const authorization = () => {
           name_view: true,
           store: true,
           main: true,
-          icon_page: true
+          icon_page: true,
+          optimize: true
         },
         component: {
           edit_button: true,
