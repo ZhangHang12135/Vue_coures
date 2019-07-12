@@ -96,7 +96,7 @@ export const downloadFile = ({ url, params }) => {
   form.remove()
 }
 
-const routeEqual = (route1, route2) => {
+export const routeEqual = (route1, route2) => {
   const params1 = route1.params || {}
   const params2 = route2.params || {}
   const query1 = route1.query || {}
@@ -158,4 +158,30 @@ export const getRouteById = id => {
   }
   res.name = id
   return res
+}
+
+export const getOpenArrByName = (name, routerList) => {
+  let arr = []
+  routerList.some(item => {
+    if (item.name === name) {
+      arr.push(item.name)
+      return true
+    }
+    if (item.children && item.children.length) {
+      let childArr = getOpenArrByName(name, item.children)
+      if (childArr.length) {
+        arr = arr.concat(item.name, childArr)
+        return true
+      }
+    }
+  })
+  return arr
+}
+
+export const localSave = (name, value) => {
+  localStorage.setItem(name, value)
+}
+
+export const localRead = (name) => {
+  return localStorage.getItem(name)
 }

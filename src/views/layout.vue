@@ -11,7 +11,7 @@
         <Content class="content-con">
           <div>
             <Tabs type="card" :value="getTabNameByRoute($route)" @on-click="handleClickTab">
-              <TabPane :label="item.meta.title" :name="getTabNameByRoute(item)" v-for="(item, index) in tabList" :key="`tabNav${index}`" ></TabPane>
+              <TabPane :label="labelRender(item)" :name="getTabNameByRoute(item)" v-for="(item, index) in tabList" :key="`tabNav${index}`" ></TabPane>
             </Tabs>
           </div>
           <div class="view-box">
@@ -26,7 +26,7 @@
 </template>
 <script>
 import SideMenu from '_c/side-menu'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { getTabNameByRoute, getRouteById } from '@/lib/until'
 export default {
   name: 'layout',
@@ -63,13 +63,34 @@ export default {
     handleCollapsed () {
       this.collapsed = !this.collapsed
     },
+    ...mapActions([
+      'handleRemove'
+    ]),
     ...mapMutations([
       'UPDATE_ROUTER'
     ]),
     handleClickTab (id) {
-      console.log(id)
       let route = getRouteById(id)
       this.$router.push(route)
+    },
+    handleTabRemove (id,event) {
+      event.stopPropagation()
+      this.handleRemove({
+        id,
+        $route: this.$route
+      }).then(nextRoute => {
+        this.$router.push(nextRoute)
+      })
+    },
+    labelRender (item) {
+      return h => {
+        return (
+          <div>
+            <span>{item.meta.title}</span>
+            <icon nativeOn-click={this.handleTabRemove.bind(this, getTabNameByRoute(item))} type="md-close-circle" style="line-height: 10px"></icon>
+          </div>
+        )
+      }
     }
   }
 }

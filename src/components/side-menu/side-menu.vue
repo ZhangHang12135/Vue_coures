@@ -2,7 +2,9 @@
   <div class="side-menu-wrapper">
     <slot></slot>
     <Menu
+      ref="menu"
       :active-name="$route.name"
+      :open-names="openNames"
       v-show="!collapsed"
       width="auto"
       theme="dark"
@@ -36,6 +38,8 @@
 <script>
 import ReSubmenu from './re-submenu.vue'
 import ReDropdown from './re-dropdown.vue'
+import { mapState } from 'vuex'
+import { getOpenArrByName } from '@/lib/until'
 export default {
   name: 'SideMenu',
   components: {
@@ -52,14 +56,27 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    ...mapState ({
+      routers: state => state.router.routers
+    }),
+    openNames () {
+      return getOpenArrByName(this.$route.name, this.routers)
+    }
+  },
+  watch: {
+    openNames () {
+      // iview这里需要手动更新
+      this.$nextTick(() => {
+        this.$refs.menu.updateOpened()
+      })
+    }
+  },
   methods: {
     handleSelect (name){
       this.$router.push({
         name
       })
-    },
-    handleClick (name){
-      console.log(name)
     }
   }
 }
