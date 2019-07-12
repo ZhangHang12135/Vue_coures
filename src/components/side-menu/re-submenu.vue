@@ -2,7 +2,7 @@
   <Submenu :name="parent.name">
     <template slot="title">
       <Icon :type="parent.icon" :size="20"/>
-      {{ parent.title }}
+      {{ parent.meta.title }}
     </template>
     <template v-for="item in parent.children">
       <re-submenu
@@ -14,7 +14,7 @@
       <menu-item
       v-else
       :key="`menu_${item.name}`"
-      :name="item.name"><Icon :type="item.icon" :size="20"/>{{ item.title }}</menu-item>
+      :name="item.name"><Icon :type="item.icon" :size="20"/>{{ item.meta.title }}</menu-item>
     </template>
 
   </Submenu>

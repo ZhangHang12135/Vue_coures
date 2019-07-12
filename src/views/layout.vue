@@ -1,8 +1,8 @@
 <template>
   <div class="layout-wrapper">
     <Layout class="layout-outer">
-      <Sider collapsible hide-trigger breakpoint="sm" v-model="collapsed">
-        <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
+      <Sider collapsible hide-trigger breakpoint="sm" v-model="collapsed" class="sider-outer">
+        <side-menu :collapsed="collapsed" :list="routers"></side-menu>
       </Sider>
       <Layout>
         <Header class="header-wrapper">
@@ -19,6 +19,7 @@
 </template>
 <script>
 import SideMenu from '_c/side-menu'
+import { mapState } from 'vuex'
 export default {
   name: 'layout',
   components: {
@@ -26,58 +27,21 @@ export default {
   },
   data() {
     return {
-      collapsed: true,
-      menuList: [
-        {
-          title: '1',
-          name: 'menu1',
-          icon: 'ios-alarm'
-        },
-        {
-          title: '2',
-          name: 'menu2',
-          icon: 'ios-alarm'
-        },
-        {
-          title: '3',
-          name: 'menu3',
-          icon: 'ios-alarm',
-          children: [
-            {
-              title: '3-11',
-              name: 'menu31',
-              icon: 'ios-alarm'
-            }
-            ,
-            {
-              title: '3-22',
-              name: 'menu32',
-              icon: 'ios-alarm',
-              children: [
-                {
-                  title: '3-22-11',
-                  name: 'menu321',
-                  icon: 'ios-alarm'
-                },
-                {
-                  title: '3-22-22',
-                  name: 'menu322',
-                  icon: 'ios-alarm'
-                }
-              ]
-            }
-          ]
-        },
-      ]
+      collapsed: false,
     }
   },
   computed:{
     triggerClasses () {
       return [
         'trigger-icon',
-        this.collapsed ? 'rotate' : ''
+        this.collapsed ? 'rotate' : '/login'
       ]
-    }
+    },
+    ...mapState({
+      routers: state => state.router.routers.filter(item => {
+        return item.path !== '*' && item.path !== '/login'
+      })
+    })
   },
   methods:{
     handleCollapsed () {
@@ -100,6 +64,15 @@ export default {
         transform: rotateZ(-90deg);
         transition: transform .3s ease;
       }
+    }
+  }
+  .sider-outer{
+    height: 100%;
+    overflow: hidden;
+    .ivu-layout-sider-children{
+      margin-right: -20px;
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
   }
   .content-con{

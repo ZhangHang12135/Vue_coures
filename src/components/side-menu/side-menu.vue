@@ -13,7 +13,7 @@
         <menu-item
         v-else
         :key="`menu_${item.name}`"
-        :name="item.name"><Icon :type="item.icon" :size="20"/>{{ item.title }}</menu-item>
+        :name="item.name"><Icon :type="item.icon" :size="20"/>{{ item.meta.title }}</menu-item>
       </template>
     </Menu>
     <div v-show="collapsed" class="drop-wrapper">
