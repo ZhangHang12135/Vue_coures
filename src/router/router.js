@@ -1,9 +1,8 @@
 import Home from '@/views/Home.vue'
-import Test from '@/views/Test.vue'
 // 这里是创建路由列表的
 // 这里是至上而下匹配，通用路由应该放在最后面--- 好像并不是的，放在前面也行
 // 视频里面说是至上而下的。。。算了，通用的放在后面肯定没有错
-export default [
+export const routerMap = [
   {
     path: '/',
     alias: '/home_page', // 别名
@@ -20,6 +19,7 @@ export default [
     children: [
       {
         path: 'home',
+        name: 'home_index',
         component: Home
       },
       {
@@ -61,12 +61,6 @@ export default [
     component: () => import('@/views/store.vue')
   },
   {
-    // 带name的就是命名路由
-    path: '/test',
-    name: 'test',
-    component: Test
-  },
-  {
     // 动态路由，name就是动态路由参数
     path: '/argu/:name',
     name: 'argu',
@@ -104,11 +98,6 @@ export default [
       }
     }
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login.vue')
-  },
   // ----- 自定义组件的视图示例 begin
   {
     path: '/count-to',
@@ -130,6 +119,13 @@ export default [
     path: '/menu_page',
     name: 'menu_page',
     component: () => import('@/views/menu_page.vue')
+  }
+]
+export const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login.vue')
   },
   {
     path: '*',

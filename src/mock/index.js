@@ -1,10 +1,12 @@
 import Mock from 'mockjs'
-import { getUserInfo } from './response/user'
+import { getUserInfo, login, authorization } from './response/user'
 import { getTableData, getFileList, getFolderList } from './response/data'
 Mock.mock(/\/getUserInfo/, 'post', getUserInfo)
 Mock.mock(/\/getTableData/, 'post', getTableData)
 Mock.mock(/\/getFileList/, 'get', getFileList)
 Mock.mock(/\/getFolderList/, 'get', getFolderList)
+Mock.mock(/\/login/, 'post', login)
+Mock.mock(/\/authorization/, 'get', authorization)
 
 // const Random = Mock.Random
 

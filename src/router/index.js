@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './router'
+import { routes } from './router'
 import store from '@/store'
-import { setTitle, getToken, setToken } from '@/lib/until'
+import { setTitle, getToken } from '@/lib/until'
 // 这里是创建路由实例的
 Vue.use(Router)
 
@@ -27,20 +27,38 @@ router.beforeEach((to, from, next) => {
   //   if (HAS_LOGINED) next({ name: 'home' })
   //   else next()
   // }
+  //   const token = getToken()
+  //   if (token) {
+  //     store.dispatch('authorization', token).then(() => {
+  //       if (to.name === 'login') next({ name: 'home' })
+  //       else next()
+  //     }).catch(() => {
+  //       setToken('')
+  //       next({ name: 'login' })
+  //     })
+  //   } else {
+  //     if (to.name === 'login') next()
+  //     else next({ name: 'login' })
+  //   }
+  //   next()
   const token = getToken()
   if (token) {
-    store.dispatch('authorization', token).then(() => {
-      if (to.name === 'login') next({ name: 'home' })
-      else next()
-    }).catch(() => {
-      setToken('')
-      next({ name: 'login' })
-    })
+    if (!store.state.router.hasGetRules) {
+      store.dispatch('authorization').then(rules => {
+        store.dispatch('concatRoutes', rules).then(routers => {
+          router.addRoutes(routers)
+          next({ ...to, replace: true })
+        }).catch(() => {
+          next({ name: 'login' })
+        })
+      })
+    } else {
+      next()
+    }
   } else {
     if (to.name === 'login') next()
     else next({ name: 'login' })
   }
-  next()
 }) // 注册全局前置守卫
 
 // 导航确认之前(所有导航钩子被确认)，同时在所有组件内守卫和异步路由组件被解析之后

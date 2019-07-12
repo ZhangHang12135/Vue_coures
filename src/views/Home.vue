@@ -21,6 +21,8 @@
       <i-col :md="6" :sm="12">3</i-col>
       <i-col :md="6" :sm="12">4</i-col>
     </Row>
+    <Button v-if="rules.edit_button">编辑</Button>
+    <Button v-if="rules.publish_button">发布</Button>
   </div>
 </template>
 
@@ -29,7 +31,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 // import axios from 'axios'
 import { getUserInfo } from '@/api/user'
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'home',
   components: {
@@ -46,6 +48,11 @@ export default {
       type: String,
       default: 'NULL'
     }
+  },
+  computed: {
+    ...mapState({
+      rules: state => state.user.rules
+    })
   },
   //页面渲染之前，路由触发之后
     beforeRouteEnter (to, from, next) {

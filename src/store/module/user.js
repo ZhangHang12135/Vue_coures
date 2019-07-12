@@ -1,11 +1,15 @@
 import { login, authorization } from '@/api/user'
 import { setToken } from '@/lib/until'
 const state = {
-  userName: 'Username'
+  userName: 'Username',
+  rules: {}
 }
 const mutations = {
   SET_USER_NAME (state, params) {
     state.userName = params
+  },
+  SET_RULES (state, rules) {
+    state.rules = rules
   }
 }
 const actions = {
@@ -31,7 +35,8 @@ const actions = {
           reject(new Error('token error'))
         } else {
           setToken(res.data.token)
-          resolve()
+          resolve(res.data.rules.page)
+          commit('SET_RULES', res.data.rules.component)
         }
       }).catch(error => {
         reject(error)
