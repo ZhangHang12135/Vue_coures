@@ -2,6 +2,7 @@
   <div>
     <!-- <edit-table :columns="columns" v-model="tableData" @on-edit="handleEdit"></edit-table> -->
     <edit-table-mul :columns="columns" v-model="tableData"></edit-table-mul>
+    <Button @click="turnTo"> 跳转</Button>
   </div>
 </template>
 <script>
@@ -24,6 +25,15 @@ export default {
   methods: {
     handleEdit ({row, index, column, newValue}) {
       console.log( index, column, newValue)
+    },
+    turnTo () {
+      let id = 'params' + (Math.random() * 100).toFixed(0)
+      this.$router.push({
+        name: 'params',
+        params: {
+          id
+        }
+      })
     }
   },
   mounted () {

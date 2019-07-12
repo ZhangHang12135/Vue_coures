@@ -75,6 +75,16 @@ export const routerMap = [
           title: '数据优化'
         },
         component: () => import('@/views/optimize.vue')
+      },
+      {
+        // 动态路由，name就是动态路由参数
+        path: 'params/:id',
+        name: 'params',
+        meta: {
+          title: '参数'
+        },
+        component: () => import('@/views/argu.vue'),
+        props: true // 开启传值
       }
     ]
   },
@@ -100,16 +110,6 @@ export const routerMap = [
       title: 'store'
     },
     component: () => import('@/views/store.vue')
-  },
-  {
-    // 动态路由，name就是动态路由参数
-    path: '/argu/:name',
-    name: 'argu',
-    meta: {
-      title: '参数'
-    },
-    component: () => import('@/views/argu.vue'),
-    props: true // 开启传值
   },
   {
     // 嵌套路由，应该跟ssm的control层里面的嵌套差不多
@@ -170,7 +170,7 @@ export const routerMap = [
     path: '/split-pane',
     name: 'split_pane',
     meta: {
-      title: 'render'
+      title: '分割面板'
     },
     component: () => import('@/views/split-pane.vue')
   },

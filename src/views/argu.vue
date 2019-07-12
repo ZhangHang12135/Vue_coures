@@ -1,7 +1,7 @@
 <template>
   <div>
     {{name}}
-    {{this.$route.params.name}}
+    {{this.$route.params.id}}
   </div>
 </template>
 <script>

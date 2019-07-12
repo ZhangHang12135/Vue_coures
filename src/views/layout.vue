@@ -9,9 +9,16 @@
           <Icon :class="triggerClasses"  type="md-menu" :size="32" @click.native="handleCollapsed" />
         </Header>
         <Content class="content-con">
+          <div>
+            <Tabs type="card" :value="getTabNameByRoute($route)" @on-click="handleClickTab">
+              <TabPane :label="item.meta.title" :name="getTabNameByRoute(item)" v-for="(item, index) in tabList" :key="`tabNav${index}`" ></TabPane>
+            </Tabs>
+          </div>
+          <div class="view-box">
           <Card shadow class="page-card">
             <router-view />
           </Card>
+          </div>
         </Content>
       </Layout>
     </Layout>
@@ -19,7 +26,8 @@
 </template>
 <script>
 import SideMenu from '_c/side-menu'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import { getTabNameByRoute, getRouteById } from '@/lib/until'
 export default {
   name: 'layout',
   components: {
@@ -28,6 +36,13 @@ export default {
   data() {
     return {
       collapsed: false,
+      getTabNameByRoute
+    }
+  },
+  watch: {
+    '$route' (newRoute) {
+      this.UPDATE_ROUTER(newRoute)
+      // console.log(newRoute)
     }
   },
   computed:{
@@ -38,6 +53,7 @@ export default {
       ]
     },
     ...mapState({
+      tabList: state => state.tabNav.tabList,
       routers: state => state.router.routers.filter(item => {
         return item.path !== '*' && item.path !== '/login'
       })
@@ -46,6 +62,14 @@ export default {
   methods:{
     handleCollapsed () {
       this.collapsed = !this.collapsed
+    },
+    ...mapMutations([
+      'UPDATE_ROUTER'
+    ]),
+    handleClickTab (id) {
+      console.log(id)
+      let route = getRouteById(id)
+      this.$router.push(route)
     }
   }
 }
@@ -76,7 +100,13 @@ export default {
     }
   }
   .content-con{
-    padding: 10px;
+    padding: 0;
+    .ivu-tabs-bar{
+      margin-bottom: 0;
+    }
+    .ivew-box{
+      padding: 0;
+    }
   }
   .page-card{
     min-height: ~"calc(100vh - 84px)"

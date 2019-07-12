@@ -6,6 +6,7 @@ import mutations from './mutations'
 import actions from './actions'
 import user from './module/user'
 import router from './module/router'
+import tabNav from './module/tabNav'
 // import saveInLocal from './plugin/saveInLocal'
 
 Vue.use(Vuex)
@@ -18,7 +19,8 @@ export default new Vuex.Store({
   actions,
   modules: {
     user,
-    router
+    router,
+    tabNav
   }
   // plugins: [ saveInLocal ]
 })

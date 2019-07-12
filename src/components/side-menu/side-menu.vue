@@ -1,7 +1,12 @@
 <template>
   <div class="side-menu-wrapper">
     <slot></slot>
-    <Menu v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
+    <Menu
+      :active-name="$route.name"
+      v-show="!collapsed"
+      width="auto"
+      theme="dark"
+      @on-select="handleSelect">
       <template v-for="item in list">
         <re-submenu
         v-if="item.children"
@@ -49,7 +54,9 @@ export default {
   },
   methods: {
     handleSelect (name){
-      console.log(name)
+      this.$router.push({
+        name
+      })
     },
     handleClick (name){
       console.log(name)
