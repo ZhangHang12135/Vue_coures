@@ -5,6 +5,8 @@ import store from './store'
 import Bus from './lib/bus'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
+import '@/assets/font/iconfont.js'
+import '@/assets/font/iconfont.css'
 // import CountTo from '_c/count-to'
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 if (process.env.NODE_ENV !== 'production') require('./mock')

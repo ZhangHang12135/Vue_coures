@@ -24,6 +24,7 @@ export const routerMap = [
       },
       {
         path: 'table',
+        name: 'tbale',
         component: () => import('@/views/table.vue')
       },
       {
@@ -32,11 +33,17 @@ export const routerMap = [
       },
       {
         path: 'upload',
+        name: 'upload',
         component: () => import('@/views/upload.vue')
       },
       {
         path: 'form',
         component: () => import('@/views/form.vue')
+      },
+      {
+        path: 'icon_page',
+        name: 'icon_page',
+        component: () => import('@/views/icon_page.vue')
       }
     ]
   },
