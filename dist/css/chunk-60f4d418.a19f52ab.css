@@ -1,0 +1,1 @@
+.tree-item{display:inline-block;width:calc(100% - 50px);height:30px;line-height:30px}.tree-item>.ivu-dropdown{float:right}.tree-item ul.ivu-dropdown{padding-left:0}.tree-item li.ivu-dropdown-item{margin:0;padding:7px 16px}.tree-item .tree-rename-input{width:calc(100% - 80px)}.floder-wrapper{width:300px}
