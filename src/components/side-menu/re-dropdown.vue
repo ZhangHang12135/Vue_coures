@@ -1,10 +1,10 @@
 <template>
-  <Dropdown @on-click="handleClick" placement="right-start">
+  <Dropdown @on-click="handleClick" transfer placement="right-start">
     <span class="drop-menu-span" :style="titleStyle">
       <Icon :type="parent.icon" :size="20" :color="iconColor"/>
       <span v-if="showTitle">{{ parent.meta.title }}</span>
     </span>
-    <Dropdown slot="list">
+    <DropdownMenu slot="list">
       <template v-for="item in parent.children">
         <re-dropdown  v-if="item.children" :key="`drop_${item.name}`" :parent="item"></re-dropdown>
         <DropdownItem  v-else :key="`drop_${item.name}`" :name="item.name">
@@ -12,7 +12,7 @@
           {{ item.meta.title }}
           </DropdownItem>
       </template>
-    </Dropdown>
+    </DropdownMenu>
   </Dropdown>
 </template>
 <script>

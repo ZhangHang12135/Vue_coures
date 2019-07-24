@@ -14,7 +14,7 @@ const actions = {
   //     console.log(err)
   //   })
   // }
-  // es8 我记得好像是es7出的async,管它呢
+  // es8
   async updateAppName ({ commit }) {
     try {
       const { info: { appName } } = await getAppName()

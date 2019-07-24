@@ -49,7 +49,7 @@ export default {
     triggerClasses () {
       return [
         'trigger-icon',
-        this.collapsed ? 'rotate' : '/login'
+        this.collapsed ? 'rotate' : ''
       ]
     },
     ...mapState({

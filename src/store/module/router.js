@@ -7,6 +7,7 @@ const state = {
 
 const mutations = {
   CONCAT_ROUTES (state, routerList) {
+    console.log(routes)
     state.routers = routerList.concat(routes)
     state.hasGetRules = true
   }

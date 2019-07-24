@@ -44,6 +44,7 @@ router.beforeEach((to, from, next) => {
   const token = getToken()
   if (token) {
     if (!store.state.router.hasGetRules) {
+      console.log('111')
       store.dispatch('authorization').then(rules => {
         store.dispatch('concatRoutes', rules).then(routers => {
           router.addRoutes(routers)
